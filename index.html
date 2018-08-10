@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>MobileCalc</title>
+ 
+ <style>
+ .calculadora { width: 300px; }
+ .numeros { width:85%;float:left}
+ .funcoes { width:15%;float:left}
+ input { width: 100%; height:40px;}
+ textarea { width: 97%;height:50px }
+ </style>
+ 
+ <script src="js/jquery.min.js"></script> 
+ <script src="phonegap.js"></script>
+ 
+</head>
+<body>
+	<nav class="content">
+		<div class="calculadora">
+			<div class="topo">
+				<textarea id="resultado"></textarea>
+			</div>
+			<div class="numeros">
+				<table width="100%">
+					<tr>
+						<td><input type="button" value="1"/></td>
+						<td><input type="button" value="2"/></td>
+						<td><input type="button" value="3"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="4"/></td>
+						<td><input type="button" value="5"/></td>
+						<td><input type="button" value="6"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="7"/></td>
+						<td><input type="button" value="8"/></td>
+						<td><input type="button" value="9"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="C"/></td>
+						<td><input type="button" value="0"/></td>
+						<td><input type="button" value="="/></td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="funcoes">
+				<table width="100%">
+					<tr>
+						<td><input type="button" value="+"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="-"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="."/></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="/"/></td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+	</nav>
+</body>
+</html>
