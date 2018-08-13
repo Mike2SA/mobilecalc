@@ -11,7 +11,7 @@
  .numeros { width:85%;float:left;}
  .funcoes { width:15%;float:left}
  input { width: 100%; height:40px; height:100%;background-color:#45494f;color:#fff;font-size:22px;border:0px}
- textarea { width: 99%;height:33vh;font-size:36px;background-color:#35383d;color:#FFF;border:0px}
+ textarea { width: 99%;height:33vh;font-size:36px;background-color:#35383d;color:#FFF;border:0px }
  table {height:65vh;}
  </style>
  
@@ -27,12 +27,17 @@
 	var resultado = document.getElementById('resultado');
 	resultado.innerHTML = "";
  }
+ function clearDigit(){
+	var resultado = document.getElementById('resultado').innerHTML;
+	document.getElementById('resultado').innerHTML = resultado.substring(0,(resultado.toString().length)-1);
+ }
  function execCalc(){
 	var resultado = document.getElementById('resultado');	
 	var valor = eval(resultado.innerHTML);
 	clearCalc();
 	resultado.innerHTML = valor;
  }
+ 
  </script>
  
 </head>
@@ -43,7 +48,7 @@
 				<textarea id="resultado"></textarea>
 			</div>
 			<div class="numeros">
-				<table width="100%">
+				<table width="100%" cellpadding="0" cellspacing="1">
 					<tr>
 						<td><input type="button" value="1" onclick="addCalc(this.value)"/></td>
 						<td><input type="button" value="2" onclick="addCalc(this.value)"/></td>
@@ -60,7 +65,7 @@
 						<td><input type="button" value="9" onclick="addCalc(this.value)"/></td>
 					</tr>
 					<tr>
-						<td><input type="button" value="C" onclick="clearCalc()"/></td>
+						<td><input type="button" value="." onclick="addCalc(this.value)"/></td>
 						<td><input type="button" value="0" onclick="addCalc(this.value)"/></td>
 						<td><input type="button" value="=" onclick="execCalc()"/></td>
 					</tr>
@@ -68,7 +73,10 @@
 			</div>
 			
 			<div class="funcoes">
-				<table width="100%">
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tr>
+						<td><input type="button" value="C" id="limpar" onclick="clearDigit()"/></td>
+					</tr>
 					<tr>
 						<td><input type="button" value="+" onclick="addCalc(this.value)"/></td>
 					</tr>
@@ -88,3 +96,95 @@
 	</nav>
 </body>
 </html>
+
+<script>
+/*
+var intervalId = 0;
+
+// Define o evento de clicar com o botão do mouse no #click
+$('#limpar').on('mousedown', function() {
+    intervalId = setInterval(hold, 5000); // Define um intervalo que a função será chamanda em 0.5 segundos
+});
+
+// Define o evento de soltar ao documento
+$(document).on('mouseup', release);
+
+// Função que será chamada com delay de 0.5 segundos
+function hold() {
+    console.log('Pressionando...');
+}
+
+// Função que será chamada quando soltar o botão
+function release() {
+    if(intervalId == 0) {
+		clearCalc();
+        clearInterval(intervalId); // Limpa o intervalo registrado anteriormente
+        intervalId = 0;                
+    }	
+}
+*/
+/*
+var intervalId = 0;
+
+// Define o evento de clicar com o botão do mouse no #click
+$('#limpar').on('mousedown', function() {
+	intervalId = setTimeout(hold, 500); // Define um intervalo que a função será chamanda em 0.5 segundos
+});
+$('#limpar').on('mouseup', release);
+
+// Define o evento de soltar ao documento
+$(document).on('mouseup', release);
+
+// Função que será chamada com delay de 0.5 segundos
+function hold() {
+    console.log('Pressionando...');
+}
+
+// Função que será chamada quando soltar o botão
+function release() {
+    if(intervalId > 0) {
+	alert(intervalId);
+		intervalId = 0;                
+		//clearInterval(intervalId); // Limpa o intervalo registrado anteriormente        
+		clearCalc();        
+    }	
+}*/
+
+ var longclick = function (cb) {
+    var min = 500;
+    var max = 4000;
+    var time, self, timeout, event;
+
+    function reset() {
+        clearTimeout(timeout);
+        timeout = null;
+    }
+
+    window.addEventListener('mouseup', reset); // caso o mouseup ocorra fora do elemento
+    return function (e) {
+        if (!self) {
+            self = this;
+            self.addEventListener('mouseup', function (e) {
+                e.stopPropagation(); // para não subir no DOM
+                var interval = new Date().getTime() - time;
+                if (timeout && interval > min) cb.call(self, event);
+                reset();
+            });
+        }
+        event = e;
+        time = new Date().getTime();
+
+        if (e.type == 'mousedown') timeout = setTimeout(reset, max);
+    };
+};
+
+var div = document.querySelector('limpar');
+var handler = longclick(function (e) {
+    clearCalc();
+});
+
+$("#limpar").on('mousedown', handler);
+//div.addEventListener('mousedown', handler);
+
+
+</script>
